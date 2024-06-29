@@ -1,0 +1,109 @@
+<style>
+  .form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .form-container form {
+    display: flex;
+    align-items: center;
+  }
+  .form-container input[type="text"] {
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .form-container button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .form-container button:hover {
+    background-color: #0056b3;
+  }
+
+  /* CSS styles for the table */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+  .results-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .results-table td a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .results-table td a:hover {
+    text-decoration: underline;
+  }
+
+  .favorite-button {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .favorite-button:hover {
+    background-color: #218838;
+  }
+</style>
+
+<div class="form-container">
+  <h1>Search for University</h1>
+  <form action="/" method="get">
+    <input type="text" name="name" placeholder="Name" required />
+    <button type="submit">Search</button>
+  </form>
+</div>
+<% if (results && results.length > 0) { %>
+<h2>Search Results for <%= name %> in India</h2>
+<table class="results-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>State/Province</th>
+      <th>Web Link</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% results.forEach(result => { %>
+    <tr>
+      <td><%= result.name %></td>
+      <td><%= result['state-province'] || 'N/A' %></td>
+      <td>
+        <a href="<%= result.web_pages[0] %>" target="_blank"
+          ><%= result.web_pages[0] %></a
+        >
+      </td>
+      <td><button class="favorite-button">Mark as Favorite</button></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>
+<% } else { %>
+<p>No results found.</p>
+<% } %>
